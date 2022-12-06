@@ -7,7 +7,7 @@ using MongoDB.Bson;
 public class DatabaseAccess : MonoBehaviour
 {
     // Start is called before the first frame update
-    private const string MONGO_URI = "mongodb+srv://agost:agost@cluster0.vhjvg.mongodb.net/?retryWrites=true&w=majority";
+    private const string MONGO_URI = "mongodb+srv://agost:<password>@cluster0.vhjvg.mongodb.net/?retryWrites=true&w=majority";
     private const string DATABASE_NAME = "test";
     private MongoClient client;
     private IMongoDatabase db;
