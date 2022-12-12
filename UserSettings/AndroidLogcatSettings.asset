@@ -1,9 +1,9 @@
 {
     "m_SelectedDeviceId": "HYYD6TZTIJPRCU8P",
     "m_SelectedPackage": {
-        "deviceId": "HYYD6TZTIJPRCU8P",
-        "name": "com.LearnXRLLC.LightshipVPSDemos",
-        "processId": 16685,
+        "deviceId": "",
+        "name": "",
+        "processId": 0,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -59,44 +59,26 @@
         {
             "deviceId": "HYYD6TZTIJPRCU8P",
             "name": "com.LearnXRLLC.LightshipVPSDemos",
-            "processId": 2145,
+            "processId": 22799,
             "exited": true
         },
         {
             "deviceId": "HYYD6TZTIJPRCU8P",
             "name": "com.LearnXRLLC.LightshipVPSDemos",
-            "processId": 4141,
+            "processId": 25144,
             "exited": true
         },
         {
             "deviceId": "HYYD6TZTIJPRCU8P",
             "name": "com.LearnXRLLC.LightshipVPSDemos",
-            "processId": 6041,
+            "processId": 28736,
             "exited": true
         },
         {
             "deviceId": "HYYD6TZTIJPRCU8P",
             "name": "com.LearnXRLLC.LightshipVPSDemos",
-            "processId": 8231,
+            "processId": 32361,
             "exited": true
-        },
-        {
-            "deviceId": "HYYD6TZTIJPRCU8P",
-            "name": "com.LearnXRLLC.LightshipVPSDemos",
-            "processId": 10374,
-            "exited": false
-        },
-        {
-            "deviceId": "HYYD6TZTIJPRCU8P",
-            "name": "com.LearnXRLLC.LightshipVPSDemos",
-            "processId": 12459,
-            "exited": false
-        },
-        {
-            "deviceId": "HYYD6TZTIJPRCU8P",
-            "name": "com.LearnXRLLC.LightshipVPSDemos",
-            "processId": 16685,
-            "exited": false
         }
     ],
     "m_Tags": {
@@ -150,7 +132,7 @@
         "Behavior": 0
     },
     "m_FilterOptions": {
-        "m_Filter": "test",
+        "m_Filter": "TEST",
         "m_UseRegularExpressions": false,
         "m_MatchCase": false
     },

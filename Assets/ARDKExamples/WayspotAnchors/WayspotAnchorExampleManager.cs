@@ -48,12 +48,10 @@ namespace Niantic.ARDKExamples.WayspotAnchors
     private const string port = "5008";
     private const string post_endpoint = "mongopost";
     private const string get_endpoint = "mongoget";
-    private WayspotAnchorPayload[] mongoPayloads;
-    
     [Serializable]
     private class MongoPayloads 
     {
-      public string[] Payloads = Array.Empty<string>();
+      public string[] Payloads;
     }
     private void Awake()
     {
@@ -138,30 +136,16 @@ namespace Niantic.ARDKExamples.WayspotAnchors
     }
 
     /// Loads all of the saved wayspot anchors
-    public async void LoadWayspotAnchors()
+    public void LoadWayspotAnchors()
     {
       if (_wayspotAnchorService.LocalizationState != LocalizationState.Localized)
       {
         _statusLog.text = "Must localize before loading anchors.";
         return;
       }
-      _statusLog.text = "Loading Wayspot Anchors from MongoDB.";
-      await Task.Run(() =>
-        {
-          LoadLocalPayloadsFromMongo();
-        }); 
-      Debug.Log("TEST MONGOPAYLOADS AFTER LOAD " + mongoPayloads);
-      var payloads = mongoPayloads;
-      if (payloads.Length > 0)
-      {
-        var wayspotAnchors = _wayspotAnchorService.RestoreWayspotAnchors(payloads);
-        CreateAnchorGameObjects(wayspotAnchors);
-        _statusLog.text = "Loaded Wayspot Anchors.";
-      }
-      else
-      {
-        _statusLog.text = "No anchors to load.";
-      }
+      _statusLog.text = "Loading Wayspot Anchors from MongoDB...";
+      
+      LoadLocalPayloadsFromMongo();
     }
 
     /// Clears all of the active wayspot anchors
@@ -231,19 +215,25 @@ namespace Niantic.ARDKExamples.WayspotAnchors
         var payloads = new List<WayspotAnchorPayload>();
         var jsonText = get_request.downloadHandler.text;
         MongoPayloads mongo_payload = JsonUtility.FromJson<MongoPayloads>(jsonText);
-        Debug.Log("TEST TEXT REQUEST " + get_request.downloadHandler.text);
-        Debug.Log("TEST CONVERTED JSON " + mongo_payload);
-        Debug.Log("TEST CONVERTED JSON TO STRING " + mongo_payload.ToString());
         foreach (var wayspotAnchorPayload in mongo_payload.Payloads)
         {
-          Debug.Log("TEST SINGLE WAYSPOT ANCHOR STRING " + wayspotAnchorPayload);
           var payload = WayspotAnchorPayload.Deserialize(wayspotAnchorPayload);
           payloads.Add(payload);
         }
 
-        mongoPayloads = payloads.ToArray();
-        Debug.Log("TEST MONGO PAY LOADS " + mongoPayloads.Length);
-      }
+        var testMongoPayloads = payloads.ToArray();
+        Debug.Log("TEST - MongoGetRequest: mongoPayLoads Length = " + testMongoPayloads.Length);
+        if (testMongoPayloads.Length > 0)
+          {
+            var wayspotAnchors = _wayspotAnchorService.RestoreWayspotAnchors(testMongoPayloads);
+            CreateAnchorGameObjects(wayspotAnchors);
+            _statusLog.text = "Loaded Wayspot Anchors.";
+          }
+          else
+          {
+            _statusLog.text = "No anchors to load.";
+          }
+          }
     }
 
     public void SaveLocalPayloadsToMongo(WayspotAnchorPayload[] wayspotAnchorPayloads)
