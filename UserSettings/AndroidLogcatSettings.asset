@@ -3,7 +3,7 @@
     "m_SelectedPackage": {
         "deviceId": "HYYD6TZTIJPRCU8P",
         "name": "com.LearnXRLLC.LightshipVPSDemos",
-        "processId": 13306,
+        "processId": 16685,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -52,14 +52,50 @@
         },
         {
             "deviceId": "HYYD6TZTIJPRCU8P",
-            "name": "com.LearnXRLLC.LightshipVPSDemos",
-            "processId": 13913,
+            "name": "com.miui.home",
+            "processId": 2246,
             "exited": false
         },
         {
             "deviceId": "HYYD6TZTIJPRCU8P",
             "name": "com.LearnXRLLC.LightshipVPSDemos",
-            "processId": 13306,
+            "processId": 2145,
+            "exited": true
+        },
+        {
+            "deviceId": "HYYD6TZTIJPRCU8P",
+            "name": "com.LearnXRLLC.LightshipVPSDemos",
+            "processId": 4141,
+            "exited": true
+        },
+        {
+            "deviceId": "HYYD6TZTIJPRCU8P",
+            "name": "com.LearnXRLLC.LightshipVPSDemos",
+            "processId": 6041,
+            "exited": true
+        },
+        {
+            "deviceId": "HYYD6TZTIJPRCU8P",
+            "name": "com.LearnXRLLC.LightshipVPSDemos",
+            "processId": 8231,
+            "exited": true
+        },
+        {
+            "deviceId": "HYYD6TZTIJPRCU8P",
+            "name": "com.LearnXRLLC.LightshipVPSDemos",
+            "processId": 10374,
+            "exited": false
+        },
+        {
+            "deviceId": "HYYD6TZTIJPRCU8P",
+            "name": "com.LearnXRLLC.LightshipVPSDemos",
+            "processId": 12459,
+            "exited": false
+        },
+        {
+            "deviceId": "HYYD6TZTIJPRCU8P",
+            "name": "com.LearnXRLLC.LightshipVPSDemos",
+            "processId": 16685,
             "exited": false
         }
     ],
@@ -114,7 +150,7 @@
         "Behavior": 0
     },
     "m_FilterOptions": {
-        "m_Filter": "",
+        "m_Filter": "test",
         "m_UseRegularExpressions": false,
         "m_MatchCase": false
     },

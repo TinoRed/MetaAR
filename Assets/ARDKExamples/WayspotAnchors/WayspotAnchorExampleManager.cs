@@ -1,8 +1,11 @@
 // Copyright 2022 Niantic, Inc. All Rights Reserved.
 using System;
 using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
-
+using UnityEngine.Networking;
+using System.Text;
+using System.Threading.Tasks;
 using Niantic.ARDK.AR;
 using Niantic.ARDK.AR.ARSessionEventArgs;
 using Niantic.ARDK.AR.HitTest;
@@ -40,6 +43,18 @@ namespace Niantic.ARDKExamples.WayspotAnchors
     private readonly Dictionary<Guid, GameObject> _wayspotAnchorGameObjects =
       new Dictionary<Guid, GameObject>();
 
+    private const string DataKey = "wayspot_anchor_payloads";
+    private const string host = "http://192.168.1.36";
+    private const string port = "5008";
+    private const string post_endpoint = "mongopost";
+    private const string get_endpoint = "mongoget";
+    private WayspotAnchorPayload[] mongoPayloads;
+    
+    [Serializable]
+    private class MongoPayloads 
+    {
+      public string[] Payloads = Array.Empty<string>();
+    }
     private void Awake()
     {
       // This is necessary for setting the user id associated with the current user. 
@@ -112,26 +127,31 @@ namespace Niantic.ARDKExamples.WayspotAnchors
       {
         var wayspotAnchors = _wayspotAnchorService.GetAllWayspotAnchors();
         var payloads = wayspotAnchors.Select(a => a.Payload);
-        WayspotAnchorDataUtility.SaveLocalPayloads(payloads.ToArray());
+        SaveLocalPayloadsToMongo(payloads.ToArray());
       }
       else
       {
-        WayspotAnchorDataUtility.SaveLocalPayloads(Array.Empty<WayspotAnchorPayload>());
+        SaveLocalPayloadsToMongo(Array.Empty<WayspotAnchorPayload>());
       }
 
       _statusLog.text = "Saved Wayspot Anchors.";
     }
 
     /// Loads all of the saved wayspot anchors
-    public void LoadWayspotAnchors()
+    public async void LoadWayspotAnchors()
     {
       if (_wayspotAnchorService.LocalizationState != LocalizationState.Localized)
       {
         _statusLog.text = "Must localize before loading anchors.";
         return;
       }
-
-      var payloads = WayspotAnchorDataUtility.LoadLocalPayloads();
+      _statusLog.text = "Loading Wayspot Anchors from MongoDB.";
+      await Task.Run(() =>
+        {
+          LoadLocalPayloadsFromMongo();
+        }); 
+      Debug.Log("TEST MONGOPAYLOADS AFTER LOAD " + mongoPayloads);
+      var payloads = mongoPayloads;
       if (payloads.Length > 0)
       {
         var wayspotAnchors = _wayspotAnchorService.RestoreWayspotAnchors(payloads);
@@ -161,6 +181,79 @@ namespace Niantic.ARDKExamples.WayspotAnchors
       _wayspotAnchorService.DestroyWayspotAnchors(_wayspotAnchorGameObjects.Keys.ToArray());
       _wayspotAnchorGameObjects.Clear();
       _statusLog.text = "Cleared Wayspot Anchors.";
+    }
+
+    // Get test from local server
+    IEnumerator GetText() {
+        UnityWebRequest www = UnityWebRequest.Get("http://192.168.1.36:5008/test");
+        yield return www.SendWebRequest();
+ 
+        if (www.result != UnityWebRequest.Result.Success) {
+            Debug.Log(www.error);
+        }
+        else {
+            // Show results as text
+            Debug.Log(www.downloadHandler.text);
+            _statusLog.text = www.downloadHandler.text.ToString();
+            Debug.Log(_localizationStatus.text);
+ 
+        }
+    }
+
+    IEnumerator MongoPostRequest(WayspotAnchorPayload[] wayspotAnchorPayloads)
+    {
+      var wayspotAnchorsData = new WayspotAnchorsData();
+      wayspotAnchorsData.Payloads = wayspotAnchorPayloads.Select(a => a.Serialize()).ToArray();
+      string wayspotAnchorsJson = JsonUtility.ToJson(wayspotAnchorsData);
+      PlayerPrefs.SetString(DataKey, wayspotAnchorsJson);
+      
+      // Saving through MongoDB
+      
+      string url_post = host + ":" + port + "/" + post_endpoint;
+      var post_request = new UnityWebRequest(url_post, "POST");
+      byte[] bodyRaw = Encoding.UTF8.GetBytes(wayspotAnchorsJson);
+      post_request.uploadHandler = (UploadHandler) new UploadHandlerRaw(bodyRaw);
+      post_request.downloadHandler = (DownloadHandler) new DownloadHandlerBuffer();
+      post_request.SetRequestHeader("Content-Type", "application/json");
+      yield return post_request.SendWebRequest();
+    }
+
+    IEnumerator MongoGetRequest()
+    {
+      string url_get = host + ":" + port + "/" + get_endpoint;
+      UnityWebRequest get_request = UnityWebRequest.Get(url_get);
+      yield return get_request.SendWebRequest();
+      if (get_request.result != UnityWebRequest.Result.Success) {
+        Debug.Log(get_request.error);
+      }
+      else {
+        // se la risposta non è vuota, seleziona i payload
+        var payloads = new List<WayspotAnchorPayload>();
+        var jsonText = get_request.downloadHandler.text;
+        MongoPayloads mongo_payload = JsonUtility.FromJson<MongoPayloads>(jsonText);
+        Debug.Log("TEST TEXT REQUEST " + get_request.downloadHandler.text);
+        Debug.Log("TEST CONVERTED JSON " + mongo_payload);
+        Debug.Log("TEST CONVERTED JSON TO STRING " + mongo_payload.ToString());
+        foreach (var wayspotAnchorPayload in mongo_payload.Payloads)
+        {
+          Debug.Log("TEST SINGLE WAYSPOT ANCHOR STRING " + wayspotAnchorPayload);
+          var payload = WayspotAnchorPayload.Deserialize(wayspotAnchorPayload);
+          payloads.Add(payload);
+        }
+
+        mongoPayloads = payloads.ToArray();
+        Debug.Log("TEST MONGO PAY LOADS " + mongoPayloads.Length);
+      }
+    }
+
+    public void SaveLocalPayloadsToMongo(WayspotAnchorPayload[] wayspotAnchorPayloads)
+    {
+      StartCoroutine(MongoPostRequest(wayspotAnchorPayloads));
+    }
+    
+    public void LoadLocalPayloadsFromMongo()
+    {
+      StartCoroutine(MongoGetRequest());
     }
 
     /// Pauses the AR Session
@@ -305,4 +398,10 @@ namespace Niantic.ARDKExamples.WayspotAnchors
       return true;
     }
   }
+  [Serializable]
+    public class WayspotAnchorsData
+    {
+      /// The payloads to save via JsonUtility
+      public string[] Payloads = Array.Empty<string>();
+    }
 }

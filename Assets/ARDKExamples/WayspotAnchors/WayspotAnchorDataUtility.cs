@@ -53,6 +53,7 @@ namespace Niantic.ARDKExamples.WayspotAnchors
     [Serializable]
     private class WayspotAnchorsData
     {
+      public string dataKey = "wayspot_anchor_payloads";
       /// The payloads to save via JsonUtility
       public string[] Payloads = Array.Empty<string>();
     }
