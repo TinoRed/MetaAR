@@ -44,7 +44,7 @@ namespace Niantic.ARDKExamples.WayspotAnchors
       new Dictionary<Guid, GameObject>();
 
     private const string DataKey = "wayspot_anchor_payloads";
-    private const string host = "http://192.168.1.36";
+    private const string host = "http://192.168.43.13";
     private const string port = "5008";
     private const string post_endpoint = "mongopost";
     private const string get_endpoint = "mongoget";
@@ -189,6 +189,10 @@ namespace Niantic.ARDKExamples.WayspotAnchors
       var wayspotAnchorsData = new WayspotAnchorsData();
       wayspotAnchorsData.Payloads = wayspotAnchorPayloads.Select(a => a.Serialize()).ToArray();
       string wayspotAnchorsJson = JsonUtility.ToJson(wayspotAnchorsData);
+      // remove the closing bracket to append more fields
+      wayspotAnchorsJson = wayspotAnchorsJson.Remove(wayspotAnchorsJson.Length-1);
+      wayspotAnchorsJson += ",\"dataKey\": \"wayspot_anchor_payloads\"}";
+      Debug.Log("TEST1 - " + wayspotAnchorsJson);
       PlayerPrefs.SetString(DataKey, wayspotAnchorsJson);
       
       // Saving through MongoDB
@@ -196,6 +200,7 @@ namespace Niantic.ARDKExamples.WayspotAnchors
       string url_post = host + ":" + port + "/" + post_endpoint;
       var post_request = new UnityWebRequest(url_post, "POST");
       byte[] bodyRaw = Encoding.UTF8.GetBytes(wayspotAnchorsJson);
+      // bodyRaw.Add(Encoding.UTF8.GetBytes("'dataKey': 'wayspot_anchor_payloads'"));
       post_request.uploadHandler = (UploadHandler) new UploadHandlerRaw(bodyRaw);
       post_request.downloadHandler = (DownloadHandler) new DownloadHandlerBuffer();
       post_request.SetRequestHeader("Content-Type", "application/json");
