@@ -3,7 +3,7 @@
     "m_SelectedPackage": {
         "deviceId": "XPH0220811002498",
         "name": "com.LearnXRLLC.LightshipVPSDemos",
-        "processId": 17063,
+        "processId": 19488,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -108,6 +108,12 @@
             "deviceId": "XPH0220811002498",
             "name": "com.LearnXRLLC.LightshipVPSDemos",
             "processId": 17063,
+            "exited": false
+        },
+        {
+            "deviceId": "XPH0220811002498",
+            "name": "com.LearnXRLLC.LightshipVPSDemos",
+            "processId": 19488,
             "exited": false
         }
     ],

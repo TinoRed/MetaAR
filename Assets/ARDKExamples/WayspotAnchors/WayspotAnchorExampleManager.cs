@@ -192,7 +192,7 @@ namespace Niantic.ARDKExamples.WayspotAnchors
       // remove the closing bracket to append more fields
       wayspotAnchorsJson = wayspotAnchorsJson.Remove(wayspotAnchorsJson.Length-1);
       wayspotAnchorsJson += ",\"dataKey\": \"wayspot_anchor_payloads\"}";
-      Debug.Log("TEST1 - " + wayspotAnchorsJson);
+      Debug.Log("TEST MongoPostRequest - " + wayspotAnchorsJson);
       PlayerPrefs.SetString(DataKey, wayspotAnchorsJson);
       
       // Saving through MongoDB
