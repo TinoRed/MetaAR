@@ -62,3 +62,8 @@ crashlytics-build.properties
 
 # OS files
 .DS_Store
+
+# Project data
+data/
+Assets/Resources/ARDK/
+ProjectSettings/ProjectVersion.txt
