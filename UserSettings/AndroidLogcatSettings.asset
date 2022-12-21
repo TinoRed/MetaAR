@@ -1,9 +1,9 @@
 {
     "m_SelectedDeviceId": "XPH0220811002498",
     "m_SelectedPackage": {
-        "deviceId": "XPH0220811002498",
-        "name": "com.LearnXRLLC.LightshipVPSDemos",
-        "processId": 19488,
+        "deviceId": "",
+        "name": "",
+        "processId": 0,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -79,36 +79,6 @@
             "name": "com.LearnXRLLC.LightshipVPSDemos",
             "processId": 32361,
             "exited": true
-        },
-        {
-            "deviceId": "XPH0220811002498",
-            "name": "com.LearnXRLLC.LightshipVPSDemos",
-            "processId": 29021,
-            "exited": false
-        },
-        {
-            "deviceId": "XPH0220811002498",
-            "name": "com.LearnXRLLC.LightshipVPSDemos",
-            "processId": 31117,
-            "exited": false
-        },
-        {
-            "deviceId": "XPH0220811002498",
-            "name": "com.LearnXRLLC.LightshipVPSDemos",
-            "processId": 4389,
-            "exited": false
-        },
-        {
-            "deviceId": "XPH0220811002498",
-            "name": "com.LearnXRLLC.LightshipVPSDemos",
-            "processId": 14456,
-            "exited": false
-        },
-        {
-            "deviceId": "XPH0220811002498",
-            "name": "com.LearnXRLLC.LightshipVPSDemos",
-            "processId": 17063,
-            "exited": false
         },
         {
             "deviceId": "XPH0220811002498",
