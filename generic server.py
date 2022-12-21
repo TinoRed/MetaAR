@@ -8,12 +8,10 @@ app = Flask(__name__)
 user = "agostino"
 password = ""
 
-@app.route('/test', methods=['GET'])
+@app.route('/coffee', methods=['GET'])
 def test():
-    print("abc")
-    return jsonify(
-                    {"severity": "danger"}
-                )
+    print("test")
+    return jsonify({"code": 200})
 
 @app.route('/mongoget', methods=['GET'])
 def mongoget():
@@ -23,8 +21,8 @@ def mongoget():
     try:
         doc = collection.find_one({"dataKey": "wayspot_anchor_payloads"})
         response = {"Payloads":doc["Payloads"]}
-    except:
-        response = {"Payloads": []}
+    except Exception as e:
+        response = {"Exception": e}
     return jsonify(response)
 
 
@@ -34,8 +32,12 @@ def mongopost():
     client = pymongo.MongoClient("mongodb+srv://{}:{}@cluster0.vhjvg.mongodb.net/?retryWrites=true&w=majority".format(user, password))
     db = client.test
     collection  = db.test
-    doc = collection.insert_one(body)
-    return jsonify({"status":200})
+    try:
+        response = collection.find_one_and_update({'dataKey': body["dataKey"]}, {'$set': {'Payloads': body["Payloads"]}},
+                               upsert=True)
+    except Exception as e:
+        response = {"Exception": e}
+    return jsonify(response)
 
 
 if __name__ == "__main__":
