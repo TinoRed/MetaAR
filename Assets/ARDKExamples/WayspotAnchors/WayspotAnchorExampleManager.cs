@@ -20,9 +20,9 @@ namespace Niantic.ARDKExamples.WayspotAnchors
 {
   public class WayspotAnchorExampleManager: MonoBehaviour
   {
-    [Tooltip("The anchor that will be placed")]
-    [SerializeField]
-    private GameObject _anchorPrefab;
+    // [Tooltip("The anchor that will be placed")]
+    // [SerializeField]
+    // private GameObject _anchorPrefab;
 
     [Tooltip("The anchors array that contains prefabs that will be placed")]
     [SerializeField]
@@ -183,23 +183,6 @@ namespace Niantic.ARDKExamples.WayspotAnchors
       _wayspotAnchorGameObjects.Clear();
       _prefabIndexesArray.Clear();
       _statusLog.text = "Cleared Wayspot Anchors.";
-    }
-
-    // Get test from local server
-    IEnumerator GetText() {
-        UnityWebRequest www = UnityWebRequest.Get("http://192.168.1.36:5008/test");
-        yield return www.SendWebRequest();
- 
-        if (www.result != UnityWebRequest.Result.Success) {
-            Debug.Log(www.error);
-        }
-        else {
-            // Show results as text
-            Debug.Log(www.downloadHandler.text);
-            _statusLog.text = www.downloadHandler.text.ToString();
-            Debug.Log(_localizationStatus.text);
- 
-        }
     }
 
     IEnumerator MongoPostRequest(WayspotAnchorPayload[] wayspotAnchorPayloads)
