@@ -1,9 +1,9 @@
 {
-    "m_SelectedDeviceId": "XPH0220811002498",
+    "m_SelectedDeviceId": "HYYD6TZTIJPRCU8P",
     "m_SelectedPackage": {
-        "deviceId": "",
-        "name": "",
-        "processId": 0,
+        "deviceId": "HYYD6TZTIJPRCU8P",
+        "name": "com.LearnXRLLC.LightshipVPSDemos",
+        "processId": 19912,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -81,6 +81,72 @@
             "exited": true
         },
         {
+            "deviceId": "HYYD6TZTIJPRCU8P",
+            "name": "com.LearnXRLLC.LightshipVPSDemos",
+            "processId": 18196,
+            "exited": false
+        },
+        {
+            "deviceId": "HYYD6TZTIJPRCU8P",
+            "name": "com.LearnXRLLC.LightshipVPSDemos",
+            "processId": 21982,
+            "exited": false
+        },
+        {
+            "deviceId": "HYYD6TZTIJPRCU8P",
+            "name": "com.LearnXRLLC.LightshipVPSDemos",
+            "processId": 24412,
+            "exited": false
+        },
+        {
+            "deviceId": "HYYD6TZTIJPRCU8P",
+            "name": "com.LearnXRLLC.LightshipVPSDemos",
+            "processId": 13192,
+            "exited": false
+        },
+        {
+            "deviceId": "HYYD6TZTIJPRCU8P",
+            "name": "com.LearnXRLLC.LightshipVPSDemos",
+            "processId": 18441,
+            "exited": false
+        },
+        {
+            "deviceId": "HYYD6TZTIJPRCU8P",
+            "name": "com.LearnXRLLC.LightshipVPSDemos",
+            "processId": 19368,
+            "exited": false
+        },
+        {
+            "deviceId": "HYYD6TZTIJPRCU8P",
+            "name": "com.LearnXRLLC.LightshipVPSDemos",
+            "processId": 14453,
+            "exited": false
+        },
+        {
+            "deviceId": "HYYD6TZTIJPRCU8P",
+            "name": "com.LearnXRLLC.LightshipVPSDemos",
+            "processId": 12657,
+            "exited": false
+        },
+        {
+            "deviceId": "HYYD6TZTIJPRCU8P",
+            "name": "com.LearnXRLLC.LightshipVPSDemos",
+            "processId": 16051,
+            "exited": false
+        },
+        {
+            "deviceId": "HYYD6TZTIJPRCU8P",
+            "name": "com.LearnXRLLC.LightshipVPSDemos",
+            "processId": 17320,
+            "exited": false
+        },
+        {
+            "deviceId": "HYYD6TZTIJPRCU8P",
+            "name": "com.LearnXRLLC.LightshipVPSDemos",
+            "processId": 19912,
+            "exited": false
+        },
+        {
             "deviceId": "XPH0220811002498",
             "name": "com.LearnXRLLC.LightshipVPSDemos",
             "processId": 19488,
@@ -138,7 +204,7 @@
         "Behavior": 0
     },
     "m_FilterOptions": {
-        "m_Filter": "TEST",
+        "m_Filter": "DEBUG",
         "m_UseRegularExpressions": false,
         "m_MatchCase": false
     },

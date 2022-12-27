@@ -5,8 +5,8 @@ import pymongo
 
 app = Flask(__name__)
 
-user = "agostino"
-password = "agostino"
+user = "agost"
+password = ""
 
 @app.route('/coffee', methods=['GET'])
 def test():
