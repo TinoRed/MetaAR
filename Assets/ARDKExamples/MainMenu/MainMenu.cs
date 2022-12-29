@@ -15,9 +15,10 @@ public class MainMenu : MonoBehaviour
 
     [Tooltip("Input text for cached Usernames")]
     [SerializeField]
-    private Text _inputField;
+    private InputField _inputField;
 
-    void Start(){
+    void Awake() 
+    {
         _userStatus.SetActive(false);
         if (PlayerPrefs.HasKey(usernameKey)){
             user = PlayerPrefs.GetString(usernameKey);
