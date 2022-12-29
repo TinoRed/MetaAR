@@ -52,7 +52,7 @@ namespace Niantic.ARDKExamples.WayspotAnchors
 
     private int _prefabIndex;
     private const string DataKey = "wayspot_anchor_payloads";
-    private const string host = "http://192.168.1.109";
+    private const string host = "http://192.168.1.92";
     private const string port = "5008";
     private const string post_endpoint = "mongopost";
     private const string get_endpoint = "mongoget";
@@ -94,6 +94,10 @@ namespace Niantic.ARDKExamples.WayspotAnchors
       {
         return;
       }
+      if (_wayspotAnchorService.LocalizationState == LocalizationState.Failed)
+      {
+        _wayspotAnchorService.Restart();
+      }
       //Get the pose where you tap on the screen
       var success = TryGetTouchInput(out Matrix4x4 localPose);
       if (_wayspotAnchorService.LocalizationState == LocalizationState.Localized)
@@ -128,7 +132,7 @@ namespace Niantic.ARDKExamples.WayspotAnchors
           _wayspotAnchorGameObjects.Values.ToList().ForEach(a => a.SetActive(false));
         }
       }
-            _localizationStatus.text = _wayspotAnchorService.LocalizationState.ToString();
+      _localizationStatus.text = _wayspotAnchorService.LocalizationState.ToString();
       _localizationState = _wayspotAnchorService.LocalizationState;
     }
 
