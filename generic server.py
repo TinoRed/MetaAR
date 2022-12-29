@@ -5,15 +5,13 @@ import pymongo
 
 app = Flask(__name__)
 
-user = "agostino"
+user = "agost"
 password = ""
 
-@app.route('/test', methods=['GET'])
+@app.route('/coffee', methods=['GET'])
 def test():
-    print("abc")
-    return jsonify(
-                    {"severity": "danger"}
-                )
+    print("test")
+    return jsonify({"code": 200})
 
 @app.route('/mongoget', methods=['GET'])
 def mongoget():
@@ -22,9 +20,9 @@ def mongoget():
     collection  = db.test
     try:
         doc = collection.find_one({"dataKey": "wayspot_anchor_payloads"})
-        response = {"Payloads":doc["Payloads"]}
-    except:
-        response = {"Payloads": []}
+        response = {"Payloads":doc["Payloads"], "prefabIndexes": doc["prefabIndexes"]}
+    except Exception as e:
+        response = {"Exception": e}
     return jsonify(response)
 
 
@@ -34,8 +32,13 @@ def mongopost():
     client = pymongo.MongoClient("mongodb+srv://{}:{}@cluster0.vhjvg.mongodb.net/?retryWrites=true&w=majority".format(user, password))
     db = client.test
     collection  = db.test
-    doc = collection.insert_one(body)
-    return jsonify({"status":200})
+    try:
+        response = collection.find_one_and_update({'dataKey': body["dataKey"]}, {'$set': {'Payloads': body["Payloads"], 'prefabIndexes': body["prefabIndexes"]}},
+                               upsert=True)
+        response = {"Payloads":response["Payloads"], "prefabIndexes": response["prefabIndexes"]}
+    except Exception as e:
+        response = {"Exception": e}
+    return jsonify(response)
 
 
 if __name__ == "__main__":
