@@ -52,7 +52,7 @@ namespace Niantic.ARDKExamples.WayspotAnchors
 
     private int _prefabIndex;
     private const string DataKey = "wayspot_anchor_payloads";
-    private const string host = "http://192.168.1.79";
+    private const string host = "http://192.168.1.109";
     private const string port = "5008";
     private const string post_endpoint = "mongopost";
     private const string get_endpoint = "mongoget";
@@ -100,7 +100,21 @@ namespace Niantic.ARDKExamples.WayspotAnchors
       {
         if (success) //Check is screen tap was a valid tap
         {
-          PlaceAnchor(localPose); //Create the Wayspot Anchor and place the GameObject
+          Ray raycast = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+          RaycastHit raycastHit;
+
+          if (Physics.Raycast(raycast, out raycastHit))
+          {
+            foreach (var wayspotAnchorGameObject in _wayspotAnchorGameObjects)
+            {
+                if (raycastHit.collider.name == wayspotAnchorGameObject.Key.ToString()) {
+                  Debug.Log("Tap on: " + wayspotAnchorGameObject.Key.ToString());
+                  // DO SOMETHING
+                  _statusLog.text = "Complimenti hai cliccato " + wayspotAnchorGameObject.Key.ToString();
+                  break;
+                }
+            }
+          }  
         }
       }
       else
