@@ -56,6 +56,7 @@ namespace Niantic.ARDKExamples.WayspotAnchors
     private const string port = "5008";
     private const string post_endpoint = "mongopost";
     private const string get_endpoint = "mongoget";
+    private bool _isFirstLoadDone = false; 
     [Serializable]
     private class MongoPayloads 
     {
@@ -102,6 +103,13 @@ namespace Niantic.ARDKExamples.WayspotAnchors
       var success = TryGetTouchInput(out Matrix4x4 localPose);
       if (_wayspotAnchorService.LocalizationState == LocalizationState.Localized)
       {
+        // After succesful localization the Wayspot anchors are loaded
+        // happens just once thanks to _isFirstLoadDone flag
+        if (!_isFirstLoadDone)
+        {
+          LoadWayspotAnchors();
+          _isFirstLoadDone = true;
+        }
         if (success) //Check is screen tap was a valid tap
         {
           Ray raycast = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
