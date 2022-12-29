@@ -20,9 +20,16 @@ namespace Niantic.ARDKExamples.WayspotAnchors
 {
   public class WayspotAnchorExampleManager: MonoBehaviour
   {
-    [Tooltip("The anchor that will be placed")]
+    // [Tooltip("The anchor that will be placed")]
+    // [SerializeField]
+    // private GameObject _anchorPrefab;
+
+    [Tooltip("The anchors array that contains prefabs that will be placed")]
     [SerializeField]
-    private GameObject _anchorPrefab;
+    private GameObject[] _anchorPrefabArray;
+
+    [SerializeField]
+    private List<int> _prefabIndexesArray = new List<int>();
 
     [Tooltip("Camera used to place the anchors via raycasting")]
     [SerializeField]
@@ -43,8 +50,9 @@ namespace Niantic.ARDKExamples.WayspotAnchors
     private readonly Dictionary<Guid, GameObject> _wayspotAnchorGameObjects =
       new Dictionary<Guid, GameObject>();
 
+    private int _prefabIndex;
     private const string DataKey = "wayspot_anchor_payloads";
-    private const string host = "http://192.168.43.13";
+    private const string host = "http://192.168.1.79";
     private const string port = "5008";
     private const string post_endpoint = "mongopost";
     private const string get_endpoint = "mongoget";
@@ -52,6 +60,7 @@ namespace Niantic.ARDKExamples.WayspotAnchors
     private class MongoPayloads 
     {
       public string[] Payloads;
+      public int[] prefabIndexes;
     }
     private void Awake()
     {
@@ -71,6 +80,7 @@ namespace Niantic.ARDKExamples.WayspotAnchors
       //  ArdkGlobalConfig.SetUserIdOnLogin(userId);
 
       _statusLog.text = "Initializing Session.";
+      _prefabIndex = 0;
     }
 
     private void OnEnable()
@@ -148,6 +158,13 @@ namespace Niantic.ARDKExamples.WayspotAnchors
       LoadLocalPayloadsFromMongo();
     }
 
+    /// Loads all of the saved wayspot anchors
+    public void ChangePrefab()
+    {
+      _prefabIndex = ++ _prefabIndex % _anchorPrefabArray.Length;
+      _statusLog.text = "Hai selezionato: " + _anchorPrefabArray[_prefabIndex].name;
+    }
+
     /// Clears all of the active wayspot anchors
     public void ClearAnchorGameObjects()
     {
@@ -164,34 +181,19 @@ namespace Niantic.ARDKExamples.WayspotAnchors
 
       _wayspotAnchorService.DestroyWayspotAnchors(_wayspotAnchorGameObjects.Keys.ToArray());
       _wayspotAnchorGameObjects.Clear();
+      _prefabIndexesArray.Clear();
       _statusLog.text = "Cleared Wayspot Anchors.";
-    }
-
-    // Get test from local server
-    IEnumerator GetText() {
-        UnityWebRequest www = UnityWebRequest.Get("http://192.168.1.36:5008/test");
-        yield return www.SendWebRequest();
- 
-        if (www.result != UnityWebRequest.Result.Success) {
-            Debug.Log(www.error);
-        }
-        else {
-            // Show results as text
-            Debug.Log(www.downloadHandler.text);
-            _statusLog.text = www.downloadHandler.text.ToString();
-            Debug.Log(_localizationStatus.text);
- 
-        }
     }
 
     IEnumerator MongoPostRequest(WayspotAnchorPayload[] wayspotAnchorPayloads)
     {
       var wayspotAnchorsData = new WayspotAnchorsData();
       wayspotAnchorsData.Payloads = wayspotAnchorPayloads.Select(a => a.Serialize()).ToArray();
+      wayspotAnchorsData.prefabIndexes = _prefabIndexesArray.ToArray();
       string wayspotAnchorsJson = JsonUtility.ToJson(wayspotAnchorsData);
       // remove the closing bracket to append more fields
-      wayspotAnchorsJson = wayspotAnchorsJson.Remove(wayspotAnchorsJson.Length-1);
-      wayspotAnchorsJson += ",\"dataKey\": \"wayspot_anchor_payloads\"}";
+      // wayspotAnchorsJson = wayspotAnchorsJson.Remove(wayspotAnchorsJson.Length-1);
+      // wayspotAnchorsJson += ",\"dataKey\": \"wayspot_anchor_payloads\"}";
       Debug.Log("TEST MongoPostRequest - " + wayspotAnchorsJson);
       PlayerPrefs.SetString(DataKey, wayspotAnchorsJson);
       
@@ -231,7 +233,7 @@ namespace Niantic.ARDKExamples.WayspotAnchors
         if (testMongoPayloads.Length > 0)
           {
             var wayspotAnchors = _wayspotAnchorService.RestoreWayspotAnchors(testMongoPayloads);
-            CreateAnchorGameObjects(wayspotAnchors);
+            CreateAnchorGameObjectsFromMongoLoad(wayspotAnchors, mongo_payload.prefabIndexes);
             _statusLog.text = "Loaded Wayspot Anchors.";
           }
           else
@@ -320,6 +322,26 @@ namespace Niantic.ARDKExamples.WayspotAnchors
       return wayspotAnchorService;
     }
 
+
+    private void CreateAnchorGameObjectsFromMongoLoad(IWayspotAnchor[] wayspotAnchors, int[] prefabMongoIndexes)
+    {
+      var i = 0;
+      foreach (var wayspotAnchor in wayspotAnchors)
+      {
+        if (_wayspotAnchorGameObjects.ContainsKey(wayspotAnchor.ID))
+        {
+          continue;
+        }
+        wayspotAnchor.TrackingStateUpdated += HandleWayspotAnchorTrackingUpdated;
+        var id = wayspotAnchor.ID;
+        var anchor = Instantiate(_anchorPrefabArray[prefabMongoIndexes[i]]);
+        _prefabIndexesArray.Add(prefabMongoIndexes[i]);
+        anchor.SetActive(false);
+        anchor.name = $"Anchor {id}";
+        _wayspotAnchorGameObjects.Add(id, anchor);
+        i++;
+      }
+    }
     private void CreateAnchorGameObjects(IWayspotAnchor[] wayspotAnchors)
     {
       foreach (var wayspotAnchor in wayspotAnchors)
@@ -330,7 +352,8 @@ namespace Niantic.ARDKExamples.WayspotAnchors
         }
         wayspotAnchor.TrackingStateUpdated += HandleWayspotAnchorTrackingUpdated;
         var id = wayspotAnchor.ID;
-        var anchor = Instantiate(_anchorPrefab);
+        var anchor = Instantiate(_anchorPrefabArray[_prefabIndex]);
+        _prefabIndexesArray.Add(_prefabIndex);
         anchor.SetActive(false);
         anchor.name = $"Anchor {id}";
         _wayspotAnchorGameObjects.Add(id, anchor);
@@ -398,5 +421,7 @@ namespace Niantic.ARDKExamples.WayspotAnchors
     {
       /// The payloads to save via JsonUtility
       public string[] Payloads = Array.Empty<string>();
+      public string dataKey = "wayspot_anchor_payloads";
+      public int[] prefabIndexes = Array.Empty<int>();
     }
 }
