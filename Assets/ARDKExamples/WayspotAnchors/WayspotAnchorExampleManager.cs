@@ -52,7 +52,7 @@ namespace Niantic.ARDKExamples.WayspotAnchors
 
     private int _prefabIndex;
     private const string DataKey = "wayspot_anchor_payloads";
-    private const string host = "http://192.168.1.92";
+    private const string host = "http://192.168.1.109";
     private const string port = "5008";
     private const string post_endpoint = "mongopost";
     private const string get_endpoint = "mongoget";
@@ -119,12 +119,12 @@ namespace Niantic.ARDKExamples.WayspotAnchors
           {
             foreach (var wayspotAnchorGameObject in _wayspotAnchorGameObjects)
             {
-                if (raycastHit.collider.name == wayspotAnchorGameObject.Key.ToString()) {
-                  Debug.Log("Tap on: " + wayspotAnchorGameObject.Key.ToString());
-                  // DO SOMETHING
-                  _statusLog.text = "Complimenti hai cliccato " + wayspotAnchorGameObject.Key.ToString();
-                  break;
-                }
+              if (raycastHit.collider.name.Equals("Anchor " + wayspotAnchorGameObject.Key.ToString())) {
+                Debug.Log("Tap on: " + wayspotAnchorGameObject.Key.ToString());
+                // DO SOMETHING
+                _statusLog.text = "Complimenti hai cliccato " + wayspotAnchorGameObject.Key.ToString();
+                break;
+              }
             }
           }  
         }
@@ -133,7 +133,7 @@ namespace Niantic.ARDKExamples.WayspotAnchors
       {
         if (success) //Check is screen tap was a valid tap
         {
-          _statusLog.text = "Must localize before placing anchor.";
+          _statusLog.text = "Must localize before playing.";
         }
         if(_localizationState != _wayspotAnchorService.LocalizationState)
         {
@@ -228,7 +228,6 @@ namespace Niantic.ARDKExamples.WayspotAnchors
       string url_post = host + ":" + port + "/" + post_endpoint;
       var post_request = new UnityWebRequest(url_post, "POST");
       byte[] bodyRaw = Encoding.UTF8.GetBytes(wayspotAnchorsJson);
-      // bodyRaw.Add(Encoding.UTF8.GetBytes("'dataKey': 'wayspot_anchor_payloads'"));
       post_request.uploadHandler = (UploadHandler) new UploadHandlerRaw(bodyRaw);
       post_request.downloadHandler = (DownloadHandler) new DownloadHandlerBuffer();
       post_request.SetRequestHeader("Content-Type", "application/json");
@@ -334,7 +333,7 @@ namespace Niantic.ARDKExamples.WayspotAnchors
       // var wayspotAnchors = await _wayspotAnchorService.CreateWayspotAnchorsAsync(localPose);
       // CreateAnchorGameObjects(wayspotAnchors);
 
-      _statusLog.text = "Anchor placed.";
+      // _statusLog.text = "Anchor placed.";
     }
 
     private WayspotAnchorService CreateWayspotAnchorService()
