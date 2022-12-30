@@ -52,7 +52,7 @@ namespace Niantic.ARDKExamples.WayspotAnchors
 
     private int _prefabIndex;
     private const string DataKey = "wayspot_anchor_payloads";
-    private const string host = "http://192.168.1.79";
+    private const string host = "http://192.168.1.109";
     private const string port = "5008";
     private const string post_endpoint = "mongopost";
     private const string get_endpoint = "mongoget";
@@ -162,7 +162,7 @@ namespace Niantic.ARDKExamples.WayspotAnchors
     public void ChangePrefab()
     {
       _prefabIndex = ++ _prefabIndex % _anchorPrefabArray.Length;
-      _statusLog.text = "Hai selezionato: " + _anchorPrefabArray[_prefabIndex].name;
+      _statusLog.text = "Hai selezionato:\n" + _anchorPrefabArray[_prefabIndex].name;
     }
 
     /// Clears all of the active wayspot anchors

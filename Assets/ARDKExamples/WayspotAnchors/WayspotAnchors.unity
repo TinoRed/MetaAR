@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748172, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -696,11 +696,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52451fd4749e945a0be9a6e3c50abb9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _anchorPrefab: {fileID: 7531433366306101547, guid: ad902307b5dbb4189b266a0baca24947, type: 3}
   _anchorPrefabArray:
-  - {fileID: 7531433366306101547, guid: ad902307b5dbb4189b266a0baca24947, type: 3}
-  - {fileID: 1145244206550150, guid: 0f818d8fdac89405fab9916029097d44, type: 3}
-  - {fileID: 1594406056780708, guid: f031e2b1b8e1b4f3699cecf8c3d87559, type: 3}
+  - {fileID: 7438517666140800188, guid: ff25669e1e066594c8420b1bd8b51b41, type: 3}
+  - {fileID: 954438644273628228, guid: d6ed22e3547bce547b55019436c6d76d, type: 3}
+  - {fileID: 8101218053146704741, guid: 44c799357b7bd2d43a4a9614b92b92b6, type: 3}
+  - {fileID: 7279673404590833928, guid: 1d303909039846244be995d90c5e1ede, type: 3}
+  - {fileID: 794967016848757695, guid: 7d12404870ed0494ea9d5f132e77627b, type: 3}
+  _prefabIndexesArray: 
   _camera: {fileID: 1314260587}
   _statusLog: {fileID: 1121769700}
   _localizationStatus: {fileID: 753293079}
