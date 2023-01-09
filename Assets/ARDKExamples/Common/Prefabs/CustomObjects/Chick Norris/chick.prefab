@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4424388481757901215}
   - component: {fileID: 1555772019539830318}
+  - component: {fileID: -7685814001943625098}
   m_Layer: 0
   m_Name: chick
   m_TagString: Logo Chick
@@ -45,6 +46,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.1352389, y: 1.4247904, z: 0.1741728}
   m_Center: {x: -0.0049363375, y: -0.119996905, z: -0.033177026}
+--- !u!111 &-7685814001943625098
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7279673404590833928}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: f910e895e64b1a44886973fbd2efb5c9, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: f910e895e64b1a44886973fbd2efb5c9, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &8164078558771037576
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2632994522180842288}
   - component: {fileID: 4566226480623315666}
+  - component: {fileID: 6589740073783698076}
   m_Layer: 0
   m_Name: b2t
   m_TagString: Logo B2T
@@ -45,6 +46,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.1228588, y: 1.3709087, z: 0.103645176}
   m_Center: {x: 0.030673862, y: -0.1512202, z: -0.019353524}
+--- !u!111 &6589740073783698076
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 794967016848757695}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: f910e895e64b1a44886973fbd2efb5c9, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: f910e895e64b1a44886973fbd2efb5c9, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &8164078558771037576
 GameObject:
   m_ObjectHideFlags: 0

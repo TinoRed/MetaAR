@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2857477984604463034}
   - component: {fileID: -3308921819684027786}
+  - component: {fileID: -3646965990657293162}
   m_Layer: 0
   m_Name: xrais
   m_TagString: Logo XRAYS
@@ -45,6 +46,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.0702602, y: 1.1208384, z: 0.14894235}
   m_Center: {x: -0.012583435, y: -0.006431818, z: -0.018841371}
+--- !u!111 &-3646965990657293162
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8101218053146704741}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: f910e895e64b1a44886973fbd2efb5c9, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: f910e895e64b1a44886973fbd2efb5c9, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &8164078558771037576
 GameObject:
   m_ObjectHideFlags: 0

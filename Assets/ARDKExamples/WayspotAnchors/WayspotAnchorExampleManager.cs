@@ -126,6 +126,7 @@ namespace Niantic.ARDKExamples.WayspotAnchors
                 // float RotationSpeed = 2.0f;
                 // wayspotAnchorGameObject.Value.transform.Rotate(Vector3.up * (RotationSpeed * Time.deltaTime));
                 // wayspotAnchorGameObject.Value.transform.Rotate(00.0f, 360.0f, 0.0f, Space.Self);
+                wayspotAnchorGameObject.Value.GetComponent<Animation>().Play();
                 break;
               }
             }

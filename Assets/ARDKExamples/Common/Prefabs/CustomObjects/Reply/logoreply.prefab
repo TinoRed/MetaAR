@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3875140686975030029}
   - component: {fileID: 99890674895376952}
+  - component: {fileID: -5467841115574619893}
   m_Layer: 0
   m_Name: logoreply
   m_TagString: Logo Reply
@@ -45,6 +46,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.055785, y: 0.33268213, z: 0.08739959}
   m_Center: {x: 0.20356834, y: -0.008007824, z: 0.080643795}
+--- !u!111 &-5467841115574619893
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7438517666140800188}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: f910e895e64b1a44886973fbd2efb5c9, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: f910e895e64b1a44886973fbd2efb5c9, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &8164078558771037576
 GameObject:
   m_ObjectHideFlags: 0
