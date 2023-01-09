@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4566226480623315666}
   m_Layer: 0
   m_Name: b2t
-  m_TagString: Untagged
+  m_TagString: Logo B2T
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

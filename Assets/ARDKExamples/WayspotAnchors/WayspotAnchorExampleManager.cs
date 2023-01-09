@@ -122,7 +122,10 @@ namespace Niantic.ARDKExamples.WayspotAnchors
               if (raycastHit.collider.name.Equals("Anchor " + wayspotAnchorGameObject.Key.ToString())) {
                 Debug.Log("Tap on: " + wayspotAnchorGameObject.Key.ToString());
                 // DO SOMETHING
-                _statusLog.text = "Complimenti hai cliccato " + wayspotAnchorGameObject.Key.ToString();
+                _statusLog.text = "Complimenti hai cliccato " + wayspotAnchorGameObject.Value.tag;
+                // float RotationSpeed = 2.0f;
+                // wayspotAnchorGameObject.Value.transform.Rotate(Vector3.up * (RotationSpeed * Time.deltaTime));
+                // wayspotAnchorGameObject.Value.transform.Rotate(00.0f, 360.0f, 0.0f, Space.Self);
                 break;
               }
             }
