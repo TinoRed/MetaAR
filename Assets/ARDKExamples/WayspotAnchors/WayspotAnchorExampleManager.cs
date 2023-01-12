@@ -52,7 +52,7 @@ namespace Niantic.ARDKExamples.WayspotAnchors
 
     private int _prefabIndex;
     private const string DataKey = "wayspot_anchor_payloads";
-    private const string host = "http://192.168.1.109";
+    private const string host = "http://192.168.1.146";
     private const string port = "5008";
     private const string post_endpoint = "mongopost";
     private const string get_endpoint = "mongoget";
